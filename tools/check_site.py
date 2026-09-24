@@ -25,6 +25,9 @@ def main():
             page.wait_for_function("Array.from(document.querySelectorAll('img[src]')).every(i => i.complete && i.naturalWidth > 0)")
             assert page.evaluate("document.documentElement.scrollWidth <= innerWidth"), "Horizontal page overflow"
             assert page.locator(".actions a").first.get_attribute("href") == "https://github.com/Allison-coder/ego-exbind"
+            assert page.locator(".actions a").count() == 1
+            assert page.locator(".adaptation-table tbody tr").last.locator("td").all_text_contents() == ["32.02", "0.055", "0.077"]
+            assert "means over three random seeds" in page.locator("#interventions .source-note").inner_text()
             assert "Dissertation Fig. 2.1" not in page.locator("body").inner_text()
             assert "Page design inspired by" not in page.locator("footer").inner_text()
             assert "Original PDF" not in page.locator("body").text_content()
