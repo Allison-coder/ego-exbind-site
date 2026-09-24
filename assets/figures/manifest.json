@@ -1,0 +1,37 @@
+[
+  {
+    "id": "actions",
+    "source": "fig_2_1_ek100_verb_noun_actions.pdf",
+    "sha256": "fa86027dcabb1c5b90202e5b4a0d9bcaeb02c49398d97d46d0dd379647bd78f9",
+    "width": 2400,
+    "height": 684
+  },
+  {
+    "id": "overview",
+    "source": "fig_3_1_egoexbind_overview.pdf",
+    "sha256": "9ea0c1f551e281561b967ee323f0930e5dd74769e78a67841dba7f6bf478da4f",
+    "width": 2400,
+    "height": 1328
+  },
+  {
+    "id": "retrieval",
+    "source": "fig_zero_shot_retrieval_exposure (1).pdf",
+    "sha256": "5b139fd91b2096a116761733df459ed4865b5b3c5788291225a79b32ea31e60f",
+    "width": 2400,
+    "height": 923
+  },
+  {
+    "id": "binding",
+    "source": "fig_binding_exposure.pdf",
+    "sha256": "8847a882647d052818ef31480eb62047adf635da6495d4e314353444bbd7a3e9",
+    "width": 2400,
+    "height": 955
+  },
+  {
+    "id": "pmi",
+    "source": "fig_pmi_retrieval (3).pdf",
+    "sha256": "03b478668fd8ca4dcd23f95e20dde29c0329674d04bbaa0b747b3b0283d0e062",
+    "width": 2400,
+    "height": 1804
+  }
+]

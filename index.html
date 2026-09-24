@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Ego-ExBind: diagnosing pretraining exposure and verb-noun binding in egocentric video-text retrieval.">
+  <meta name="theme-color" content="#ffffff">
+  <title>Ego-ExBind | Better Retrieval, Not Better Binding</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="wordmark" href="#overview">Ego<span>-</span>ExBind</a>
+      <div class="nav-links">
+        <a href="#overview" aria-current="location">Overview</a>
+        <a href="#protocol">Protocol</a>
+        <a href="#exposure">Exposure</a>
+        <a href="#binding">Binding</a>
+        <a href="#results">Results</a>
+        <a href="https://github.com/Allison-coder/ego-exbind" target="_blank" rel="noopener noreferrer">Code <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section id="overview" class="overview section-anchor">
+      <div class="paper-heading">
+        <p class="eyebrow">EGOCENTRIC VIDEO–TEXT RETRIEVAL</p>
+        <h1>Better Retrieval,<br>Not Better Binding</h1>
+        <p class="paper-subtitle">Pretraining Exposure in Egocentric Video Retrieval</p>
+        <p class="project-name">Ego-ExBind</p>
+        <p class="intro">Does a model understand an action, or recognise a familiar composition?<br class="desktop-break"> A diagnostic protocol separating pretraining exposure from verb–noun binding.</p>
+        <div class="actions">
+          <a class="button primary" href="https://github.com/Allison-coder/ego-exbind" target="_blank" rel="noopener noreferrer"><img class="icon" src="./assets/icons/code-xml.svg" alt="">Code <span aria-hidden="true">↗</span></a>
+          <a class="button" href="#results">Results <span aria-hidden="true">↓</span></a>
+          <a class="button" href="./assets/figures/overview.pdf" target="_blank" rel="noopener">Protocol PDF <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <figure class="action-strip content-width">
+        <img src="./assets/figures/actions.webp" width="2400" height="684" fetchpriority="high" alt="Three EPIC-KITCHENS-100 action examples: slicing chilli, cleaning a pan, and squeezing a lemon.">
+        <div class="action-labels" aria-hidden="true">
+          <p><span>01</span> slice <strong>chilli</strong></p>
+          <p><span>02</span> clean <strong>pan</strong></p>
+          <p><span>03</span> squeeze <strong>lemon</strong></p>
+        </div>
+        <figcaption>Every action has a verb and a noun. Strong retrieval alone does not establish that a model binds them correctly.<br><span>EPIC-KITCHENS-100 examples · Dissertation Fig. 2.1</span></figcaption>
+      </figure>
+      <div class="takeaway content-width"><span class="eyebrow">THE CENTRAL FINDING</span><p>Exposure-associated retrieval gains do not necessarily imply stronger <strong>verb–noun binding.</strong></p></div>
+    </section>
+
+    <section id="protocol" class="section content-width section-anchor">
+      <div class="section-heading"><p class="eyebrow">01 / DIAGNOSTIC PROTOCOL</p><h2>What was seen. What was learned.</h2><p>Ego-ExBind combines an exposure ledger with controlled caption comparisons. Retrieval and binding are evaluated together, using EgoVLPv2 pretrained on EgoClip.</p></div>
+      <figure class="scientific-figure">
+        <div class="figure-surface">
+          <img src="./assets/figures/overview.webp" width="2400" height="1327" loading="lazy" alt="Ego-ExBind overview: EgoClip exposure ledger and EK100 queries feed separate exposure and binding branches, followed by retrieval and binding evaluation.">
+          <button class="icon-button expand" data-figure="overview" aria-label="Expand protocol figure" title="Expand protocol figure"><img src="./assets/icons/maximize-2.svg" alt=""></button>
+        </div>
+        <figcaption><strong>Ego-ExBind overview.</strong> One branch measures pretraining exposure; the other tests noun and verb discrimination. <a href="./assets/figures/overview.pdf" target="_blank" rel="noopener">Original PDF ↗</a></figcaption>
+      </figure>
+      <div class="two-columns protocol-notes">
+        <div><span class="small-number">A</span><h3>Exposure ledger</h3><p>Verb, noun and verb–noun pair frequencies are mapped from EgoClip narrations into the EK100 taxonomy. Seen and unseen are defined relative to this pretraining corpus.</p></div>
+        <div><span class="small-number">B</span><h3>Binding probes</h3><p>Keep the verb fixed and swap the noun; keep the noun fixed and swap the verb. Compare each alternative with the correct caption using similarity margins and accuracy.</p></div>
+      </div>
+    </section>
+
+    <section id="exposure" class="section content-width section-anchor">
+      <div class="section-heading"><p class="eyebrow">02 / PRETRAINING EXPOSURE</p><h2>Familiar atoms. Unseen combinations.</h2><p>The 9,668 EK100 retrieval queries are partitioned by their exposure in EgoClip. An unseen composition contains familiar verbs and nouns that were not observed together in the ledger.</p></div>
+      <div class="split-bar" role="img" aria-label="9,668 retrieval queries: 8,648 seen compositions, 713 unseen compositions, and 307 unseen atoms."><span class="sc"></span><span class="uc"></span><span class="ua"></span></div>
+      <dl class="split-stats">
+        <div><dt><span class="dot sc"></span>Seen Composition <abbr title="Seen Composition">SC</abbr></dt><dd>8,648</dd><p>Pair observed in pretraining</p></div>
+        <div><dt><span class="dot uc"></span>Unseen Composition <abbr title="Unseen Composition">UC</abbr></dt><dd>713</dd><p>Atoms observed; pair unobserved</p></div>
+        <div><dt><span class="dot ua"></span>Unseen Atom <abbr title="Unseen Atom">UA</abbr></dt><dd>307</dd><p>At least one atom unobserved</p></div>
+      </dl>
+      <div class="tab-list" role="tablist" aria-label="Exposure analysis">
+        <button id="tab-retrieval" role="tab" aria-selected="true" aria-controls="panel-retrieval" tabindex="0">Pair exposure</button>
+        <button id="tab-pmi" role="tab" aria-selected="false" aria-controls="panel-pmi" tabindex="-1">Association strength (PMI)</button>
+      </div>
+      <div id="panel-retrieval" role="tabpanel" aria-labelledby="tab-retrieval" class="exposure-panel">
+        <figure class="scientific-figure">
+          <div class="figure-surface"><img src="./assets/figures/retrieval.webp" width="2400" height="923" loading="lazy" alt="Zero-shot retrieval across SC, UC and UA, and positive associations between pair exposure and retrieval within seen compositions."><button class="icon-button expand" data-figure="retrieval" aria-label="Expand retrieval figure" title="Expand retrieval figure"><img src="./assets/icons/maximize-2.svg" alt=""></button></div>
+          <figcaption><strong>Retrieval and pretraining exposure.</strong> Top: exposure-relative splits. Bottom: pair-level retrieval against log-scaled pair frequency within seen compositions. <a href="./assets/figures/retrieval.pdf" target="_blank" rel="noopener">Original PDF ↗</a></figcaption>
+        </figure>
+        <p class="finding">Pair exposure predicts retrieval beyond the marginal frequencies of individual verbs and nouns. These are associations, not interventions on pretraining data.</p>
+      </div>
+      <div id="panel-pmi" role="tabpanel" aria-labelledby="tab-pmi" class="exposure-panel" hidden>
+        <figure class="scientific-figure pmi-figure">
+          <div class="figure-surface"><img src="./assets/figures/pmi.webp" width="2400" height="1804" loading="lazy" alt="PMI and retrieval plots: weak associations in video-to-text retrieval and stronger associations in text-to-video retrieval."><button class="icon-button expand" data-figure="pmi" aria-label="Expand PMI figure" title="Expand PMI figure"><img src="./assets/icons/maximize-2.svg" alt=""></button></div>
+          <figcaption><strong>Association strength is direction-dependent.</strong> PMI measures verb–noun association relative to the marginal frequencies. <a href="./assets/figures/pmi.pdf" target="_blank" rel="noopener">Original PDF ↗</a></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="binding" class="section content-width section-anchor">
+      <div class="section-heading"><p class="eyebrow">03 / VERB–NOUN BINDING</p><h2>Retrieval is only half the story.</h2><p>On 8,592 eligible seen-composition probes, the frozen model separates noun-swapped captions more strongly than verb-swapped captions. Higher pair exposure is associated with stronger noun binding, but not stronger verb binding.</p></div>
+      <div class="binding-summary">
+        <div><span class="metric-label">NOUN-SWAP MARGIN</span><strong>0.222</strong><span>Frozen EgoVLPv2</span></div>
+        <div><span class="metric-label">VERB-SWAP MARGIN</span><strong>0.092</strong><span>Frozen EgoVLPv2</span></div>
+        <p>A margin is the similarity of the correct caption minus that of its swapped alternative. Positive values favour the correct caption.</p>
+      </div>
+      <figure class="scientific-figure">
+        <div class="figure-surface"><img src="./assets/figures/binding.webp" width="2400" height="955" loading="lazy" alt="Noun and verb binding margins versus pair exposure across 8,592 seen-composition probes. The noun association is positive; the verb association is weakly negative."><button class="icon-button expand" data-figure="binding" aria-label="Expand binding figure" title="Expand binding figure"><img src="./assets/icons/maximize-2.svg" alt=""></button></div>
+        <figcaption><strong>Asymmetric binding channels.</strong> Noun and verb margins against log-scaled pair exposure. Markers show bin means with 95% confidence intervals. <a href="./assets/figures/binding.pdf" target="_blank" rel="noopener">Original PDF ↗</a></figcaption>
+      </figure>
+    </section>
+
+    <section id="results" class="section content-width section-anchor">
+      <div class="section-heading"><p class="eyebrow">04 / COUNTERFACTUAL EXPOSURE</p><h2>Change exposure input.<br>Keep the checkpoint fixed.</h2><p>The pretrained backbone stays frozen during adapter/bias training. At counterfactual evaluation, the trained adapters and bias network are fixed; only the exposure input changes.</p></div>
+      <div class="condition-definitions">
+        <div><span>01</span><h3>Original</h3><p>Each caption retains its true exposure vector.</p></div>
+        <div><span>02</span><h3>Zeroed</h3><p>Every caption receives the same zero exposure input.</p></div>
+        <div><span>03</span><h3>Shuffled</h3><p>Exposure vectors are reassigned across captions.</p></div>
+      </div>
+      <div class="tab-list" role="tablist" aria-label="Counterfactual results">
+        <button id="tab-overall" role="tab" aria-selected="true" aria-controls="panel-overall" tabindex="0">Retrieval</button>
+        <button id="tab-splits" role="tab" aria-selected="false" aria-controls="panel-splits" tabindex="-1">SC / UC</button>
+        <button id="tab-margins" role="tab" aria-selected="false" aria-controls="panel-margins" tabindex="-1">Binding margins</button>
+      </div>
+      <div id="panel-overall" role="tabpanel" aria-labelledby="tab-overall" class="results-panel">
+        <div class="table-scroll" role="region" aria-label="Retrieval scores" tabindex="0"><table><caption>EK100-MIR · V→T retrieval (%)</caption><thead><tr><th scope="col">Condition</th><th scope="col">mAP</th><th scope="col">nDCG</th></tr></thead><tbody><tr><th scope="row">Zeroed</th><td>32.91</td><td>43.04</td></tr><tr class="highlight"><th scope="row">Original</th><td>33.70 <small>+0.79</small></td><td>44.22 <small>+1.18</small></td></tr><tr><th scope="row">Shuffled</th><td>32.56</td><td>42.80</td></tr></tbody></table></div>
+        <p class="table-note">Changes in the Original row are percentage-point differences from Zeroed. T→V rankings remain unchanged by construction.</p>
+      </div>
+      <div id="panel-splits" role="tabpanel" aria-labelledby="tab-splits" class="results-panel" hidden>
+        <div class="table-scroll" role="region" aria-label="Exposure split scores" tabindex="0"><table><caption>EK100-MIR · V→T mAP by exposure split (%)</caption><thead><tr><th scope="col">Condition</th><th scope="col">SC</th><th scope="col">UC</th></tr></thead><tbody><tr><th scope="row">Zeroed</th><td>33.94</td><td>26.14</td></tr><tr class="highlight"><th scope="row">Original</th><td>34.97 <small>+1.03</small></td><td>24.51 <small class="negative">−1.63</small></td></tr><tr><th scope="row">Shuffled</th><td>33.56</td><td>26.15</td></tr></tbody></table></div>
+        <p class="table-note">Relative to Zeroed, true exposure improves SC retrieval but reduces UC retrieval.</p>
+      </div>
+      <div id="panel-margins" role="tabpanel" aria-labelledby="tab-margins" class="results-panel" hidden>
+        <div class="table-scroll" role="region" aria-label="Binding margins" tabindex="0"><table><caption>Counterfactual conditions · Binding margins</caption><thead><tr><th scope="col">Condition</th><th scope="col">Noun</th><th scope="col">Verb</th></tr></thead><tbody><tr><th scope="row">Zeroed</th><td>0.058</td><td>0.065</td></tr><tr class="highlight"><th scope="row">Original</th><td>0.058</td><td>0.064</td></tr><tr><th scope="row">Shuffled</th><td>0.058</td><td>0.064</td></tr></tbody></table></div>
+        <p class="table-note">Binding margins remain essentially unchanged at the reported precision.</p>
+      </div>
+      <p class="source-note">Reported values: dissertation Table 4.6. Zeroed is the base ranking of the jointly trained checkpoint, not the original frozen zero-shot baseline.</p>
+      <div class="conclusion"><p class="eyebrow">BETTER RETRIEVAL ≠ BETTER BINDING</p><p>Correct exposure information can change retrieval rankings without a corresponding improvement in compositional binding.</p><span>This evidence concerns a fixed-checkpoint scoring pathway, not a change to the pretraining corpus.</span></div>
+    </section>
+
+    <section class="resources content-width" aria-labelledby="resources-title"><div><p class="eyebrow">EGO-EXBIND</p><h2 id="resources-title">Explore the research.</h2><p>Exposure ledger, retrieval evaluation, binding probes and diagnostic interventions.</p></div><a class="button primary" href="https://github.com/Allison-coder/ego-exbind" target="_blank" rel="noopener noreferrer"><img class="icon" src="./assets/icons/code-xml.svg" alt="">View code on GitHub <span aria-hidden="true">↗</span></a></section>
+  </main>
+  <footer class="content-width"><span>Ego-ExBind · Egocentric video–text retrieval</span><p>Built on EgoVLPv2, EgoClip and EPIC-KITCHENS-100.<br>Page design inspired by <a href="https://sid2697.github.io/epic-contact/" target="_blank" rel="noopener noreferrer">EPIC-Contact</a>.</p><a href="#overview">Back to top ↑</a></footer>
+  <dialog id="figure-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-toolbar"><h2 id="dialog-title">Figure</h2><div><a id="dialog-pdf" target="_blank" rel="noopener">Original PDF ↗</a><button id="close-dialog" class="icon-button" aria-label="Close figure" title="Close figure"><img src="./assets/icons/x.svg" alt=""></button></div></div>
+    <div class="dialog-image"><img id="dialog-image" alt=""></div>
+  </dialog>
+</body>
+</html>
