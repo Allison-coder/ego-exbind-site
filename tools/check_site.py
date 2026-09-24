@@ -27,6 +27,9 @@ def main():
             assert page.locator(".actions a").first.get_attribute("href") == "https://github.com/Allison-coder/ego-exbind"
             assert "Dissertation Fig. 2.1" not in page.locator("body").inner_text()
             assert "Page design inspired by" not in page.locator("footer").inner_text()
+            assert "Original PDF" not in page.locator("body").text_content()
+            for reference in ["thesis", "dissertation", "Table 4.", "Tables 4."]:
+                assert reference not in page.locator("body").text_content()
             assert page.locator("#panel-retrieval figcaption a").count() == 0
             assert page.locator("#panel-retrieval .figure-surface > img").get_attribute("src").endswith("retrieval.svg")
             assert page.locator(".research-summary").count() == 1

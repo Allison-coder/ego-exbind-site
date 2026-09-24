@@ -38,7 +38,6 @@ document.querySelectorAll("[data-figure]").forEach((button) => {
     const image = document.getElementById("dialog-image");
     image.src = source.src;
     image.alt = source.alt;
-    document.getElementById("dialog-pdf").href = `./assets/figures/${name}.pdf`;
     dialog.showModal();
     document.body.classList.add("modal-open");
   });

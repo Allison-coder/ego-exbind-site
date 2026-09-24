@@ -75,7 +75,7 @@
           <img src="./assets/figures/overview.webp" width="2400" height="1327" loading="lazy" alt="Ego-ExBind overview: EgoClip exposure ledger and EK100 queries feed separate exposure and binding branches, followed by retrieval and binding evaluation.">
           <button class="icon-button expand" data-figure="overview" aria-label="Expand protocol figure" title="Expand protocol figure"><img src="./assets/icons/maximize-2.svg" alt=""></button>
         </div>
-        <figcaption><strong>Ego-ExBind overview.</strong> One branch measures pretraining exposure; the other tests noun and verb discrimination. <a href="./assets/figures/overview.pdf" target="_blank" rel="noopener">Original PDF ↗</a></figcaption>
+        <figcaption><strong>Ego-ExBind overview.</strong> One branch measures pretraining exposure; the other tests noun and verb discrimination.</figcaption>
       </figure>
       <div class="two-columns protocol-notes">
         <div><span class="small-number">A</span><h3>Exposure ledger</h3><p>Verb, noun and verb–noun pair frequencies are mapped from EgoClip narrations into the EK100 taxonomy. Seen and unseen are defined relative to this pretraining corpus.</p></div>
@@ -105,7 +105,7 @@
       <div id="panel-pmi" role="tabpanel" aria-labelledby="tab-pmi" class="exposure-panel" hidden>
         <figure class="scientific-figure pmi-figure">
           <div class="figure-surface"><img src="./assets/figures/pmi.webp" width="2400" height="1804" loading="lazy" alt="PMI and retrieval plots: weak associations in video-to-text retrieval and stronger associations in text-to-video retrieval."><button class="icon-button expand" data-figure="pmi" aria-label="Expand PMI figure" title="Expand PMI figure"><img src="./assets/icons/maximize-2.svg" alt=""></button></div>
-          <figcaption><strong>Association strength is direction-dependent.</strong> PMI measures verb–noun association relative to the marginal frequencies. <a href="./assets/figures/pmi.pdf" target="_blank" rel="noopener">Original PDF ↗</a></figcaption>
+          <figcaption><strong>Association strength is direction-dependent.</strong> PMI measures verb–noun association relative to the marginal frequencies.</figcaption>
         </figure>
       </div>
     </section>
@@ -119,7 +119,7 @@
       </div>
       <figure class="scientific-figure">
         <div class="figure-surface"><img src="./assets/figures/binding.webp" width="2400" height="955" loading="lazy" alt="Noun and verb binding margins versus pair exposure across 8,592 seen-composition probes. The noun association is positive; the verb association is weakly negative."><button class="icon-button expand" data-figure="binding" aria-label="Expand binding figure" title="Expand binding figure"><img src="./assets/icons/maximize-2.svg" alt=""></button></div>
-        <figcaption><strong>Asymmetric binding channels.</strong> Noun and verb margins against log-scaled pair exposure. Markers show bin means with 95% confidence intervals. <a href="./assets/figures/binding.pdf" target="_blank" rel="noopener">Original PDF ↗</a></figcaption>
+        <figcaption><strong>Asymmetric binding channels.</strong> Noun and verb margins against log-scaled pair exposure. Markers show bin means with 95% confidence intervals.</figcaption>
       </figure>
     </section>
 
@@ -138,7 +138,7 @@
         <div><span class="small-number">03</span><h3>Exposure decorrelation</h3><p>Penalise squared batchwise Pearson correlation between noun margins and log-scaled pair exposure. Sweep weights 0, 1, 50 and 100; this does not directly target the verb channel.</p></div>
       </div>
       <div class="table-scroll adaptation-table" role="region" aria-label="Selected adaptation results" tabindex="0"><table><caption>Selected training interventions · Average V→T / T→V mAP (%) and large-SC binding margins</caption><thead><tr><th scope="col">Setting</th><th scope="col">mAP AVG</th><th scope="col">Noun margin</th><th scope="col">Verb margin</th></tr></thead><tbody><tr><th scope="row">Domain adaptation</th><td>31.99</td><td>0.054</td><td>0.078</td></tr><tr class="highlight"><th scope="row">Verb-HN, λ = 0.50, final</th><td>33.33</td><td>0.079</td><td>0.091</td></tr><tr><th scope="row">Anchor + noun protection, λd = 0</th><td>32.02 ± 0.18</td><td>0.055 ± 0.001</td><td>0.077 ± 0.002</td></tr></tbody></table></div>
-      <p class="source-note">Selected results from thesis Tables 4.3–4.4, not the full ablation sweep. The protected setting reports mean ± standard deviation over three seeds. The hard-negative row is the final checkpoint, not dev-best. Table 4.5 uses a different, smaller C3 probe and is not mixed into these binding comparisons.</p>
+      <p class="source-note">Selected settings, not the full ablation sweep. The protected setting reports mean ± standard deviation over three seeds. The hard-negative row uses the final checkpoint, not the development-selected checkpoint. All binding margins shown here use the large seen-composition probe.</p>
       <p class="finding"><strong>Local improvement is not full binding repair.</strong> Hard negatives improve verb discrimination relative to domain adaptation, but the noun margin remains below the frozen baseline of 0.222. Anchoring and protection do not restore that baseline, and stronger exposure decorrelation does not consistently improve retrieval or binding.</p>
     </section>
 
@@ -167,7 +167,7 @@
         <div class="table-scroll" role="region" aria-label="Binding margins" tabindex="0"><table><caption>Counterfactual conditions · Binding margins</caption><thead><tr><th scope="col">Condition</th><th scope="col">Noun</th><th scope="col">Verb</th></tr></thead><tbody><tr><th scope="row">Zeroed</th><td>0.058</td><td>0.065</td></tr><tr class="highlight"><th scope="row">Original</th><td>0.058</td><td>0.064</td></tr><tr><th scope="row">Shuffled</th><td>0.058</td><td>0.064</td></tr></tbody></table></div>
         <p class="table-note">Binding margins remain essentially unchanged at the reported precision.</p>
       </div>
-      <p class="source-note">Reported values: dissertation Table 4.6. Zeroed is the base ranking of the jointly trained checkpoint, not the original frozen zero-shot baseline.</p>
+      <p class="source-note">Zeroed is the base ranking of the jointly trained checkpoint, not the original frozen zero-shot baseline.</p>
       <div class="conclusion"><p class="eyebrow">BETTER RETRIEVAL ≠ BETTER BINDING</p><p>Correct exposure information can change retrieval rankings without a corresponding improvement in compositional binding.</p><span>This evidence concerns a fixed-checkpoint scoring pathway, not a change to the pretraining corpus.</span></div>
     </section>
 
@@ -175,7 +175,7 @@
   </main>
   <footer class="content-width"><span>Ego-ExBind · Egocentric video–text retrieval</span><p>Built on EgoVLPv2, EgoClip and EPIC-KITCHENS-100.</p><a href="#overview">Back to top ↑</a></footer>
   <dialog id="figure-dialog" aria-labelledby="dialog-title">
-    <div class="dialog-toolbar"><h2 id="dialog-title">Figure</h2><div><a id="dialog-pdf" target="_blank" rel="noopener">Original PDF ↗</a><button id="close-dialog" class="icon-button" aria-label="Close figure" title="Close figure"><img src="./assets/icons/x.svg" alt=""></button></div></div>
+    <div class="dialog-toolbar"><h2 id="dialog-title">Figure</h2><div><button id="close-dialog" class="icon-button" aria-label="Close figure" title="Close figure"><img src="./assets/icons/x.svg" alt=""></button></div></div>
     <div class="dialog-image"><img id="dialog-image" alt=""></div>
   </dialog>
 </body>
