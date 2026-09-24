@@ -19,7 +19,7 @@ or under the GitHub Pages project path `/ego-exbind-site/`.
 5. After a successful deployment, the expected address is
    https://Allison-coder.github.io/ego-exbind-site/.
 
-This website has NOT been uploaded or published by its creation process.
+The website is published at https://allison-coder.github.io/ego-exbind-site/.
 Before publishing, confirm review anonymity requirements and permission to
 redistribute the EPIC-KITCHENS example images. A public project page is not anonymous.
 
@@ -29,6 +29,8 @@ redistribute the EPIC-KITCHENS example images. A public project page is not anon
   `assets/figures/manifest.json` contains source filenames, checksums and preview sizes.
 - WebP previews are PDF renders, not AI-generated or reconstructed scientific images.
   Rendering at a higher pixel count does not recover details missing in a raster PDF.
+- The retrieval figure now uses a vector SVG converted from the supplied
+  `fig1_retrieval_pretraining_exposure.pdf`; text is preserved as vector paths.
 - Action captions follow dissertation Fig. 2.1: slice chilli, clean pan, squeeze lemon.
   These are illustrative frames, not new sample-level model predictions.
 - The SC/UC/UA counts (8648/713/307) refer to 9668 retrieval queries.

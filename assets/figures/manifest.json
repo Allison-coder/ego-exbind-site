@@ -14,13 +14,6 @@
     "height": 1328
   },
   {
-    "id": "retrieval",
-    "source": "fig_zero_shot_retrieval_exposure (1).pdf",
-    "sha256": "5b139fd91b2096a116761733df459ed4865b5b3c5788291225a79b32ea31e60f",
-    "width": 2400,
-    "height": 923
-  },
-  {
     "id": "binding",
     "source": "fig_binding_exposure.pdf",
     "sha256": "8847a882647d052818ef31480eb62047adf635da6495d4e314353444bbd7a3e9",
@@ -33,5 +26,12 @@
     "sha256": "03b478668fd8ca4dcd23f95e20dde29c0329674d04bbaa0b747b3b0283d0e062",
     "width": 2400,
     "height": 1804
+  },
+  {
+    "id": "retrieval",
+    "source": "fig1_retrieval_pretraining_exposure.pdf",
+    "sha256": "c08b5b00195cc49cc60d5ce2457155ab90d258707d210926831aa0ad6f392b08",
+    "width": 2400,
+    "height": 917
   }
 ]

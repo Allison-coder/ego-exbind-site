@@ -24,6 +24,14 @@ def main():
             page.wait_for_function("Array.from(document.querySelectorAll('img[src]')).every(i => i.complete && i.naturalWidth > 0)")
             assert page.evaluate("document.documentElement.scrollWidth <= innerWidth"), "Horizontal page overflow"
             assert page.locator(".actions a").first.get_attribute("href") == "https://github.com/Allison-coder/ego-exbind"
+            assert "Dissertation Fig. 2.1" not in page.locator("body").inner_text()
+            assert "Page design inspired by" not in page.locator("footer").inner_text()
+            assert page.locator("#panel-retrieval figcaption a").count() == 0
+            assert page.locator("#panel-retrieval .figure-surface > img").get_attribute("src").endswith("retrieval.svg")
+            page.locator('[data-figure="retrieval"]').click()
+            assert page.locator("#dialog-image").get_attribute("src").endswith("retrieval.svg")
+            page.locator("#close-dialog").click()
+            page.evaluate("window.scrollTo({top: 0, behavior: 'instant'})")
             page.screenshot(path=str(OUT / (str(width) + "-home.png")))
             page.screenshot(path=str(OUT / (str(width) + "-full.png")), full_page=True)
             page.locator("#tab-pmi").click()
