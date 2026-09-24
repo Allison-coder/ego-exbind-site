@@ -15,7 +15,8 @@ def main():
                                     headless=False, args=["--headless=new", "--no-sandbox", "--disable-dev-shm-usage"])
         report = []
         for width, height in [(1440, 1000), (390, 844), (320, 740)]:
-            page = browser.new_page(viewport={"width": width, "height": height}, device_scale_factor=1)
+            page = browser.new_page(viewport={"width": width, "height": height}, device_scale_factor=1,
+                                    reduced_motion="reduce")
             errors = []
             page.on("pageerror", lambda error: errors.append(str(error)))
             page.goto((ROOT / "index.html").as_uri())
@@ -28,12 +29,28 @@ def main():
             assert "Page design inspired by" not in page.locator("footer").inner_text()
             assert page.locator("#panel-retrieval figcaption a").count() == 0
             assert page.locator("#panel-retrieval .figure-surface > img").get_attribute("src").endswith("retrieval.svg")
+            assert page.locator(".research-summary").count() == 1
+            assert page.locator(".action-strip img").get_attribute("src").endswith("actions.webp")
+            assert "EgoVLPv2, pretrained on EgoClip" in page.locator("#setup").inner_text()
+            assert page.locator(".contribution-index li").count() == 3
+            assert page.locator(".flow-branches > div").count() == 2
+            assert "Similarity anchoring" in page.locator("#interventions").inner_text()
+            assert "Noun-margin protection" in page.locator("#interventions").inner_text()
+            assert "33.33" in page.locator("#interventions").inner_text()
+            assert page.locator(".evaluation-flow li").count() == 4
+            assert page.locator("#overview").evaluate("el => el.compareDocumentPosition(document.querySelector('#setup')) & Node.DOCUMENT_POSITION_FOLLOWING")
+            for link in page.locator('.nav-links a[href^="#"]').all():
+                assert page.locator(link.get_attribute("href")).count() == 1
             page.locator('[data-figure="retrieval"]').click()
             assert page.locator("#dialog-image").get_attribute("src").endswith("retrieval.svg")
             page.locator("#close-dialog").click()
             page.evaluate("window.scrollTo({top: 0, behavior: 'instant'})")
             page.screenshot(path=str(OUT / (str(width) + "-home.png")))
             page.screenshot(path=str(OUT / (str(width) + "-full.png")), full_page=True)
+            page.evaluate("window.scrollTo(0, document.querySelector('#interventions').offsetTop - document.querySelector('.site-header').offsetHeight)")
+            page.wait_for_timeout(300)
+            assert abs(page.locator('.site-header').bounding_box()['y']) < 1
+            page.screenshot(path=str(OUT / (str(width) + "-interventions.png")))
             page.locator("#tab-pmi").click()
             assert page.locator("#panel-pmi").is_visible()
             assert not page.locator("#panel-retrieval").is_visible()

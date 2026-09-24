@@ -16,9 +16,11 @@
       <a class="wordmark" href="#overview">Ego<span>-</span>ExBind</a>
       <div class="nav-links">
         <a href="#overview" aria-current="location">Overview</a>
+        <a href="#setup">Setup</a>
         <a href="#protocol">Protocol</a>
         <a href="#exposure">Exposure</a>
         <a href="#binding">Binding</a>
+        <a href="#interventions">Interventions</a>
         <a href="#results">Results</a>
         <a href="https://github.com/Allison-coder/ego-exbind" target="_blank" rel="noopener noreferrer">Code <span aria-hidden="true">↗</span></a>
       </div>
@@ -32,7 +34,7 @@
         <h1>Better Retrieval,<br>Not Better Binding</h1>
         <p class="paper-subtitle">Pretraining Exposure in Egocentric Video Retrieval</p>
         <p class="project-name">Ego-ExBind</p>
-        <p class="intro">Does a model understand an action, or recognise a familiar composition?<br class="desktop-break"> A diagnostic protocol separating pretraining exposure from verb–noun binding.</p>
+        <div class="research-summary"><p class="eyebrow">TL;DR</p><p>Finding the right video does not necessarily mean understanding the action. We introduce <strong>Ego-ExBind</strong>, a diagnostic protocol that links pretraining exposure to tests of verb–noun binding. Using EgoVLPv2 on EPIC-KITCHENS-100, we show that retrieval can improve without stronger binding between an action and its object.</p></div>
         <div class="actions">
           <a class="button primary" href="https://github.com/Allison-coder/ego-exbind" target="_blank" rel="noopener noreferrer"><img class="icon" src="./assets/icons/code-xml.svg" alt="">Code <span aria-hidden="true">↗</span></a>
           <a class="button" href="#results">Results <span aria-hidden="true">↓</span></a>
@@ -40,6 +42,7 @@
         </div>
       </div>
       <figure class="action-strip content-width">
+        <div class="example-heading"><p class="eyebrow">EVERYDAY ACTIONS / EPIC-KITCHENS-100</p><h2>The object matters. So does the action.</h2></div>
         <img src="./assets/figures/actions.webp" width="2400" height="684" fetchpriority="high" alt="Three EPIC-KITCHENS-100 action examples: slicing chilli, cleaning a pan, and squeezing a lemon.">
         <div class="action-labels" aria-hidden="true">
           <p><span>01</span> slice <strong>chilli</strong></p>
@@ -51,8 +54,22 @@
       <div class="takeaway content-width"><span class="eyebrow">THE CENTRAL FINDING</span><p>Exposure-associated retrieval gains do not necessarily imply stronger <strong>verb–noun binding.</strong></p></div>
     </section>
 
+    <section id="setup" class="section content-width section-anchor">
+      <div class="section-heading"><p class="eyebrow">PAPER OVERVIEW / MODEL AND DATA</p><h2>Looking beyond the retrieval score</h2><p>Video–language models can retrieve relevant videos, but retrieval scores alone do not establish whether they distinguish the correct action–object combination. We study this gap using an existing pretrained model and benchmark, tracking what appeared in pretraining and testing verbs and nouns separately.</p></div>
+      <div class="two-columns protocol-notes setup-notes">
+        <div><span class="small-number">01</span><p class="eyebrow">EVALUATION DATA</p><h3>EPIC-KITCHENS-100</h3><p>First-person videos of everyday kitchen activities, annotated with verbs and nouns. We evaluate video-to-text and text-to-video retrieval on 9,668 EK100-MIR queries, alongside controlled caption comparisons that test binding.</p></div>
+        <div><span class="small-number">02</span><p class="eyebrow">PRETRAINED MODEL</p><h3>EgoVLPv2, pretrained on EgoClip</h3><p>EgoVLPv2 supplies the video and text encoders. EgoClip supplies the pretraining narrations used to build our exposure ledger. The pretrained encoders stay frozen; diagnostic experiments train lightweight adapters and, for exposure reweighting, a bias network.</p></div>
+      </div>
+      <p class="source-note">EgoVLPv2, EgoClip and EPIC-KITCHENS-100 are existing research resources. Ego-ExBind contributes the diagnostic protocol and analyses, not a new backbone or newly collected video dataset.</p>
+      <ol class="contribution-index" aria-label="Research contributions">
+        <li><a href="#protocol"><span>01 / PROTOCOL</span>Measure exposure and binding together</a></li>
+        <li><a href="#exposure"><span>02 / DIAGNOSIS</span>Separate retrieval gains from binding</a></li>
+        <li><a href="#results"><span>03 / CONTROLLED EVIDENCE</span>Test the role of exposure information</a></li>
+      </ol>
+    </section>
+
     <section id="protocol" class="section content-width section-anchor">
-      <div class="section-heading"><p class="eyebrow">01 / DIAGNOSTIC PROTOCOL</p><h2>What was seen. What was learned.</h2><p>Ego-ExBind combines an exposure ledger with controlled caption comparisons. Retrieval and binding are evaluated together, using EgoVLPv2 pretrained on EgoClip.</p></div>
+      <div class="section-heading"><p class="eyebrow">CONTRIBUTION 01 / DIAGNOSTIC PROTOCOL</p><h2>Track exposure. Test the action–object match.</h2><p>Our exposure ledger counts verbs, nouns and their combinations in EgoClip. Binding probes then compare a correct caption with alternatives that change only the object or only the action. Together, they separate pretraining familiarity from measured verb–noun discrimination.</p></div>
       <figure class="scientific-figure">
         <div class="figure-surface">
           <img src="./assets/figures/overview.webp" width="2400" height="1327" loading="lazy" alt="Ego-ExBind overview: EgoClip exposure ledger and EK100 queries feed separate exposure and binding branches, followed by retrieval and binding evaluation.">
@@ -67,12 +84,12 @@
     </section>
 
     <section id="exposure" class="section content-width section-anchor">
-      <div class="section-heading"><p class="eyebrow">02 / PRETRAINING EXPOSURE</p><h2>Familiar atoms. Unseen combinations.</h2><p>The 9,668 EK100 retrieval queries are partitioned by their exposure in EgoClip. An unseen composition contains familiar verbs and nouns that were not observed together in the ledger.</p></div>
+      <div class="section-heading"><p class="eyebrow">CONTRIBUTION 02 / EXPOSURE AND RETRIEVAL</p><h2>Familiar combinations are easier to retrieve</h2><p>The 9,668 EK100 retrieval queries are grouped by what appears in the EgoClip exposure ledger. Within seen combinations, higher pair frequency is associated with better zero-shot retrieval, even after controlling for individual verb and noun frequencies.</p></div>
       <div class="split-bar" role="img" aria-label="9,668 retrieval queries: 8,648 seen compositions, 713 unseen compositions, and 307 unseen atoms."><span class="sc"></span><span class="uc"></span><span class="ua"></span></div>
       <dl class="split-stats">
         <div><dt><span class="dot sc"></span>Seen Composition <abbr title="Seen Composition">SC</abbr></dt><dd>8,648</dd><p>Pair observed in pretraining</p></div>
-        <div><dt><span class="dot uc"></span>Unseen Composition <abbr title="Unseen Composition">UC</abbr></dt><dd>713</dd><p>Atoms observed; pair unobserved</p></div>
-        <div><dt><span class="dot ua"></span>Unseen Atom <abbr title="Unseen Atom">UA</abbr></dt><dd>307</dd><p>At least one atom unobserved</p></div>
+        <div><dt><span class="dot uc"></span>Unseen Composition <abbr title="Unseen Composition">UC</abbr></dt><dd>713</dd><p>Verb and noun observed, but not together</p></div>
+        <div><dt><span class="dot ua"></span>Unseen Atom <abbr title="Unseen Atom">UA</abbr></dt><dd>307</dd><p>Verb or noun absent from the ledger</p></div>
       </dl>
       <div class="tab-list" role="tablist" aria-label="Exposure analysis">
         <button id="tab-retrieval" role="tab" aria-selected="true" aria-controls="panel-retrieval" tabindex="0">Pair exposure</button>
@@ -94,7 +111,7 @@
     </section>
 
     <section id="binding" class="section content-width section-anchor">
-      <div class="section-heading"><p class="eyebrow">03 / VERB–NOUN BINDING</p><h2>Retrieval is only half the story.</h2><p>On 8,592 eligible seen-composition probes, the frozen model separates noun-swapped captions more strongly than verb-swapped captions. Higher pair exposure is associated with stronger noun binding, but not stronger verb binding.</p></div>
+      <div class="section-heading"><p class="eyebrow">CONTRIBUTION 02 / VERB–NOUN BINDING</p><h2>Stronger noun binding, not stronger verb binding</h2><p>Does familiarity help the model distinguish both the object and the action? On 8,592 eligible seen-composition probes, higher pair exposure is associated with stronger noun binding, but not stronger verb binding. Better retrieval therefore does not tell the whole story.</p></div>
       <div class="binding-summary">
         <div><span class="metric-label">NOUN-SWAP MARGIN</span><strong>0.222</strong><span>Frozen EgoVLPv2</span></div>
         <div><span class="metric-label">VERB-SWAP MARGIN</span><strong>0.092</strong><span>Frozen EgoVLPv2</span></div>
@@ -106,8 +123,28 @@
       </figure>
     </section>
 
+    <section id="interventions" class="section content-width section-anchor">
+      <div class="section-heading"><p class="eyebrow">CONTRIBUTION 02 / TRAINING-TIME INTERVENTIONS</p><h2>Target the action. Protect the object.</h2><p>Can targeted training close the gap? We test verb-focused hard negatives and a separate line of noun-protected, exposure-decorrelated adaptation. These are diagnostic interventions, not separate model contributions: each tests whether retrieval gains come with stronger binding.</p></div>
+      <div class="training-flow" aria-label="Training interventions with two separate experimental branches">
+        <div class="flow-start"><p class="eyebrow">SHARED BASELINE</p><h3>Frozen EgoVLPv2 → Domain adaptation</h3><p>Train zero-initialised video and text residual adapters with the EK100 retrieval objective. Keep the pretrained encoders frozen.</p></div>
+        <div class="two-columns flow-branches">
+          <div><p class="eyebrow">BRANCH A / VERB DISCRIMINATION</p><h3>Add verb-focused hard negatives</h3><p>Keep the noun and replace the verb: “cut onion” versus “wash onion”. Add the negative to its video-to-text training comparison while retaining the base retrieval objective.</p></div>
+          <div><p class="eyebrow">BRANCH B / NOUN PRESERVATION</p><h3>Anchor scores and protect noun margins</h3><p>Start from the domain-adapted reference. Combine similarity anchoring with noun-margin protection, then vary the exposure-decorrelation penalty.</p></div>
+        </div>
+      </div>
+      <div class="intervention-details">
+        <div><span class="small-number">01</span><h3>Similarity anchoring</h3><p>Penalise changes to the video–text similarity matrix relative to the domain-adapted reference, limiting global score drift.</p></div>
+        <div><span class="small-number">02</span><h3>Noun-margin protection</h3><p>Penalise a mean noun margin below a chosen floor. This is a soft training penalty, not a guarantee that noun discrimination is preserved.</p></div>
+        <div><span class="small-number">03</span><h3>Exposure decorrelation</h3><p>Penalise squared batchwise Pearson correlation between noun margins and log-scaled pair exposure. Sweep weights 0, 1, 50 and 100; this does not directly target the verb channel.</p></div>
+      </div>
+      <div class="table-scroll adaptation-table" role="region" aria-label="Selected adaptation results" tabindex="0"><table><caption>Selected training interventions · Average V→T / T→V mAP (%) and large-SC binding margins</caption><thead><tr><th scope="col">Setting</th><th scope="col">mAP AVG</th><th scope="col">Noun margin</th><th scope="col">Verb margin</th></tr></thead><tbody><tr><th scope="row">Domain adaptation</th><td>31.99</td><td>0.054</td><td>0.078</td></tr><tr class="highlight"><th scope="row">Verb-HN, λ = 0.50, final</th><td>33.33</td><td>0.079</td><td>0.091</td></tr><tr><th scope="row">Anchor + noun protection, λd = 0</th><td>32.02 ± 0.18</td><td>0.055 ± 0.001</td><td>0.077 ± 0.002</td></tr></tbody></table></div>
+      <p class="source-note">Selected results from thesis Tables 4.3–4.4, not the full ablation sweep. The protected setting reports mean ± standard deviation over three seeds. The hard-negative row is the final checkpoint, not dev-best. Table 4.5 uses a different, smaller C3 probe and is not mixed into these binding comparisons.</p>
+      <p class="finding"><strong>Local improvement is not full binding repair.</strong> Hard negatives improve verb discrimination relative to domain adaptation, but the noun margin remains below the frozen baseline of 0.222. Anchoring and protection do not restore that baseline, and stronger exposure decorrelation does not consistently improve retrieval or binding.</p>
+    </section>
+
     <section id="results" class="section content-width section-anchor">
-      <div class="section-heading"><p class="eyebrow">04 / COUNTERFACTUAL EXPOSURE</p><h2>Change exposure input.<br>Keep the checkpoint fixed.</h2><p>The pretrained backbone stays frozen during adapter/bias training. At counterfactual evaluation, the trained adapters and bias network are fixed; only the exposure input changes.</p></div>
+      <div class="section-heading"><p class="eyebrow">CONTRIBUTION 03 / CONTROLLED EXPOSURE TEST</p><h2>Better retrieval, without stronger binding</h2><p>Can exposure information alone change the ranking? After jointly training adapters and an exposure-bias network with the pretrained encoders frozen, we hold the entire trained checkpoint fixed. At inference, we replace only the exposure input and measure retrieval and binding again.</p></div>
+      <ol class="evaluation-flow" aria-label="Exposure intervention pipeline"><li><span>01 / TRAIN</span>Fit adapters and exposure bias</li><li><span>02 / FIX</span>Keep the trained checkpoint unchanged</li><li><span>03 / REPLACE</span>Original, zeroed or shuffled exposure</li><li><span>04 / COMPARE</span>Retrieval scores and binding margins</li></ol>
       <div class="condition-definitions">
         <div><span>01</span><h3>Original</h3><p>Each caption retains its true exposure vector.</p></div>
         <div><span>02</span><h3>Zeroed</h3><p>Every caption receives the same zero exposure input.</p></div>
